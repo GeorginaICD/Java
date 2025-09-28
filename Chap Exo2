@@ -1,0 +1,76 @@
+/*
+ Chap 1 - Exo 2
+ */
+package chap.pkg1.exo.pkg2;
+
+import java.util.Scanner;
+
+/**
+ *
+ * @author georg
+ */
+public class Chap1Exo2 {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+       Scanner sc = new Scanner(System.in);
+
+        // Menu des opérations
+        System.out.println("Please enter the operator:");
+        System.out.println("1) add");
+        System.out.println("2) subtract");
+        System.out.println("3) multiply");
+        System.out.println("4) divide");
+        System.out.println("5) modulo");
+
+        int choice = sc.nextInt();
+
+        // Vérification de l'opérateur avant de demander les nombres
+        if (choice < 1 || choice > 5) {
+            System.out.println("Error: operator must be between 1 and 5!");
+            sc.close();
+            return; // quitte le programme si opérateur invalide
+        }
+
+        // Demander les nombres seulement si l'opérateur est valide
+        System.out.print("Enter first number: ");
+        int a = sc.nextInt();
+
+        System.out.print("Enter second number: ");
+        int b = sc.nextInt();
+
+        int result = 0;
+
+        switch (choice) {
+            case 1: result = a + b; break;
+            case 2: result = a - b; break;
+            case 3: result = a * b; break;
+            case 4: 
+                if (b != 0) {
+                    result = a / b;
+                } else {
+                    System.out.println("Error: division by zero!");
+                    sc.close();
+                    return;
+                }
+                break;
+            case 5: 
+                if (b != 0) {
+                    result = a % b;
+                } else {
+                    System.out.println("Error: modulo by zero!");
+                    sc.close();
+                    return;
+                }
+                break;
+        }
+
+        // Afficher le résultat
+        System.out.println("Result = " + result);
+
+        sc.close();
+    }
+    
+}
