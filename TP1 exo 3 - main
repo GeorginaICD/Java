@@ -1,0 +1,48 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package ex1;
+
+/**
+ *
+ * @author georg
+ */
+public class Ex1 {
+    
+    public static void main(String[] args) {
+        // 9) Création d'une instance de la classe Personne (constructeur naturel)
+        Personne personne1 = new Personne("Dupont", "Jean", 2004);
+
+        // 10) Création de 2 autres instances avec les autres constructeurs
+        Personne personne2 = new Personne("Marie", 2003);  // constructeur partiel
+        Personne personne3 = new Personne();               // constructeur par défaut
+
+        System.out.println("\n--- Test des méthodes sur personne1 ---");
+        // 11) Invoquer les méthodes get(), set(), mange(), calculerAge(), afficherInfos()
+        System.out.println("Nom avant modification : " + personne1.getNom());
+        personne1.setNom("Durand");
+        System.out.println("Nom après modification : " + personne1.getNom());
+
+        personne1.mange("Sandwich");
+        System.out.println("Âge : " + personne1.calculerAge());
+        personne1.afficherInfos();
+
+        System.out.println("\n--- Test des méthodes sur personne2 ---");
+        personne2.afficherInfos();
+        personne2.mange("Pizza");
+
+        System.out.println("\n--- Test des méthodes sur personne3 ---");
+        personne3.afficherInfos();
+        personne3.mange("Salade");
+
+        Personne p = new Personne("Anna", "Otto", 2002);
+
+System.out.println("Nom palindrome ? " + p.isPalindrome(p.getNom()));       // true
+System.out.println("Prénom palindrome ? " + p.isPalindrome(p.getPrenom())); // true
+System.out.println("Année palindrome ? " + p.isPalindrome(String.valueOf(p.getAnNaissance()))); // true
+
+     
+    }
+}
+
