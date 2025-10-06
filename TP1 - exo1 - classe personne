@@ -8,6 +8,12 @@ import java.time.LocalDate; // pour obtenir l'annÃ©e courante
 Elle dÃ©finit un type dâ€™objet, avec ses attributs et comportements 
 */
 
+/* Créer le projet java with Ants, java Application, enregistrer le package as ex1 et la Ex1 tout en cochant main
+(en fait on créer la classe main au début) après sur le package ex1, right click, new class, personne pour créer notre classe personne
+où va créer les attributs, constructeurs et les méthodes, afin de les appeler en utilisant la classe main().
+*/
+
+
 /**
  *
  * @author georg
