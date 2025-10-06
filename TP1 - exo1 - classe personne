@@ -1,0 +1,103 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
+ */
+package ex1;
+import java.time.LocalDate; // pour obtenir l'annÃ©e courante
+/*La classe Personne est une classe de modÃ¨le (ou classe mÃ©tier).
+Elle dÃ©finit un type dâ€™objet, avec ses attributs et comportements 
+*/
+
+/**
+ *
+ * @author georg
+ */
+public class Personne {
+
+    /**
+     * @param args the command line arguments
+     * */
+  // --- Attributs ---
+    private String nom;
+    private String prenom;
+    private int anNaissance;
+    
+    private static int nbPersonnes = 0;
+
+    // --- Constructeur naturel ---
+    public Personne(String nom, String prenom, int anNaissance) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.anNaissance = anNaissance;
+        
+         nbPersonnes++;
+         afficherNbPers(); // Affiche le nombre total
+    }
+    
+    // --- Constructeur partiel ---
+    public Personne(String prenom, int anNaissance) {
+        this.nom = "Inconnu";
+        this.prenom = prenom;
+        this.anNaissance = anNaissance;
+        
+        
+        nbPersonnes++;
+         afficherNbPers(); // Affiche le nombre total
+    }
+    
+     // --- Constructeur par dÃ©faut ---
+    public Personne() {
+        this("Potter", "Harry", 1980); // Appel du premier constructeur
+    }
+    
+      // --- Getters ---
+    public String getNom() {
+        return nom;
+    }
+
+    public String getPrenom() {
+        return prenom;
+    }
+
+    public int getAnNaissance() {
+        return anNaissance;
+    }
+    
+    // --- Setters ---
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
+
+    public void setAnNaissance(int anNaissance) {
+        this.anNaissance = anNaissance;
+    }
+    
+        // --- MÃ©thode 6 : calculerAge() ---
+    public int calculerAge() {
+        int anneeActuelle = LocalDate.now().getYear();
+        return anneeActuelle - anNaissance;
+    }
+    
+    // --- MÃ©thode 7 : afficherInfos() ---
+    public void afficherInfos() {
+        System.out.println("Nom : " + nom);
+        System.out.println("PrÃ©nom : " + prenom);
+        System.out.println("Ã‚ge : " + calculerAge());
+    }
+    
+      // --- MÃ©thode 8 : mange() ---
+    public void mange(String aliment) {
+        System.out.println(nom + " " + prenom + " mange un/une " + aliment);
+    }
+    
+       public static void afficherNbPers() {
+        System.out.println("Nombre total de personnes crÃ©Ã©es : " + nbPersonnes);
+    }
+    
+    
+    
+}
