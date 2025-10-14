@@ -1,0 +1,35 @@
+// Classe Commande
+class Commande {
+    private int idCommande;
+    private Client client;
+    private List<Produit> produitsCommandes;
+    private double total;
+
+    // Constructeur
+    public Commande(int idCommande, Client client, Panier panier) {
+        this.idCommande = idCommande;
+        this.client = client;
+        this.produitsCommandes = new ArrayList<>(panier.getProduits());
+        this.total = panier.calculerTotal();
+    }
+
+    // Afficher les détails de la commande
+    public void afficherDetailsCommande() {
+        System.out.println("Commande [idCommande=" + idCommande + ", client=" + client.getNom() + "]");
+        for (Produit p : produitsCommandes) {
+            p.afficherDetails();
+        }
+        System.out.println("Total: " + total);
+    }
+
+    // Getters et Setters
+    public int getIdCommande() { return idCommande; }
+    public void setIdCommande(int idCommande) { this.idCommande = idCommande; }
+
+    public Client getClient() { return client; }
+    public void setClient(Client client) { this.client = client; }
+
+    public List<Produit> getProduitsCommandes() { return produitsCommandes; }
+
+    public double getTotal() { return total; }
+}
