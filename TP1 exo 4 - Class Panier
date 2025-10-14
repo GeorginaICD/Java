@@ -1,0 +1,41 @@
+// Classe Panier
+class Panier {
+    private List<Produit> produits;
+
+    // Constructeur
+    public Panier() {
+        this.produits = new ArrayList<>();
+    }
+
+    // Ajouter un produit au panier
+    public void ajouterProduit(Produit produit) {
+        produits.add(produit);
+    }
+
+    // Supprimer un produit du panier
+    public void supprimerProduit(Produit produit) {
+        produits.remove(produit);
+    }
+
+    // Afficher les produits dans le panier
+    public void afficherPanier() {
+        System.out.println("Panier:");
+        for (Produit p : produits) {
+            p.afficherDetails();
+        }
+    }
+
+    // Calculer le total du panier
+    public double calculerTotal() {
+        double total = 0;
+        for (Produit p : produits) { 
+            total += p.getPrix() * p.getQuantite();
+        }
+        return total;
+    }
+
+    // Getter pour les produits
+    public List<Produit> getProduits() {
+        return produits;
+    }
+}
