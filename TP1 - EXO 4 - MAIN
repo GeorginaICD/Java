@@ -1,0 +1,16 @@
+public class Main {
+    public static void main(String[] args) {
+        Produit p1 = new Produit(1, "Stylo", 2.5, 3);
+        Produit p2 = new Produit(2, "Cahier", 5.0, 2);
+
+        Client client = new Client(1, "Alice", "alice@mail.com");
+
+        Panier panier = new Panier();
+        panier.ajouterProduit(p1);
+        panier.ajouterProduit(p2);
+
+        Commande commande = new Commande(101, client, panier);
+
+        commande.afficherDetailsCommande();
+    }
+}
