@@ -1,0 +1,27 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package boutique;
+
+/**
+ *
+ * @author georg
+ */
+public class Manuel extends Livre {
+    
+     private String matiere;
+    private String niveau;
+    
+    public Manuel(String description, double prixInitial, int nbExemplaires, String isbn, int nbPages, String matiere, String niveau) {
+        super(description, prixInitial, nbExemplaires, isbn, nbPages );
+        this.matiere = matiere;
+        this.niveau = niveau;
+    }
+    
+    @Override
+    public String toString() {
+        return super.toString() + " - Matière : " + matiere + " - Niveau : " + niveau;
+    }
+    
+}
