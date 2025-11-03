@@ -1,0 +1,62 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package boutique;
+
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+
+/**
+ *
+ * @author georg
+ */
+public class Magazine extends Article {
+    
+    private String issn;
+    private String periodicite;
+    private LocalDate datePublication;
+    
+    public Magazine(String description, double prixInitial, int nbExemplaires, String issn, String periodicite, LocalDate datePublication) {
+        super(description, prixInitial, nbExemplaires);
+        this.issn = issn;
+        this.periodicite = periodicite;
+        this.datePublication = datePublication;
+    }
+    
+     @Override
+    public double calculerPrix() {
+        LocalDate now = LocalDate.now();
+        long diff;
+
+        switch(periodicite.toLowerCase()) {
+            case "hebdomadaire" -> {
+                diff = datePublication.until(now, ChronoUnit.WEEKS);
+                if (diff > 4) return prixInitial * 0.25;
+                if (diff > 2) return prixInitial * 0.5;
+            }
+
+            case "mensuel" -> {
+                diff = datePublication.until(now, ChronoUnit.MONTHS);
+                if (diff > 4) return prixInitial * 0.25;
+                if (diff > 2) return prixInitial * 0.5;
+            }
+
+            case "trimestriel" -> {
+                diff = datePublication.until(now, ChronoUnit.MONTHS) / 3;
+                if (diff > 4) return prixInitial * 0.25;
+                if (diff > 2) return prixInitial * 0.5;
+            }
+        }
+        return prixInitial;
+    }
+    
+
+
+    @Override
+    public String toString() {
+        return super.toString() + " - ISSN : " + issn + " - " + periodicite +
+               " - Publié le : " + datePublication;
+    }
+    
+}
