@@ -1,0 +1,60 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package boutique;
+
+import java.time.LocalDate;
+
+/**
+ *
+ * @author georg
+ */
+public class BonDepot {
+    private static int compteur = 1; // Permet d'avoir un numéro unique automatiquement
+
+    private int numeroBon;
+    private String telephone;
+    private LocalDate dateDepot;
+    private int nbLignes;
+    private LigneDepot[] lignes; // tableau limité
+
+    public BonDepot(String telephone, int maxArticles) {
+        this.numeroBon = compteur++;
+        this.telephone = telephone;
+        this.dateDepot = LocalDate.now();
+        this.lignes = new LigneDepot[maxArticles];
+        this.nbLignes = 0;
+    }
+
+    public void ajouterLigne(String numero, int qte) {
+        if (nbLignes < lignes.length) {
+            lignes[nbLignes] = new LigneDepot(numero, qte);
+            nbLignes++;
+        } else {
+            System.out.println("Impossible d'ajouter une nouvelle ligne, tableau plein.");
+        }
+    }
+
+    public int getNumeroBon() {
+        return numeroBon;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public LocalDate getDateDepot() {
+        return dateDepot;
+    }
+
+    @Override
+    public String toString() {
+        String s = "Bon n°" + numeroBon + " - Tel: " + telephone + " - Date : " + dateDepot + "\n";
+        for (int i = 0; i < nbLignes; i++) {
+            s += "   " + lignes[i].toString() + "\n";
+        }
+        return s;
+    }
+    
+}
