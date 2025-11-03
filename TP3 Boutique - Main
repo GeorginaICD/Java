@@ -1,0 +1,57 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
+ */
+package boutique;
+
+/**
+ *
+ * @author georg
+ */
+public class Boutique {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        // TODO code application logic here
+        
+        // 1) Création de l'établissement avec capacités limitées
+        Etablissement e = new Etablissement("Librairie Solidaire", 20, 10);
+
+          // 2) Ajout d'articles
+        e.ajouterLivre("La maison vide", 25, 10, "9782707356741", 752);
+         e.ajouterManuel("Nouvelle grammaire du collège", 38, 31, "9782210446694", 512, "Français", "Collège");
+    //      e.ajouterMagazine("Geo", 6.0, 20, "00208245", "mensuel", "2024-08-01");
+ 
+        System.out.println("=== Articles après ajout ===");
+        System.out.println(e);
+        
+        
+        
+          // 3) Création d'un bon de dépôt
+        BonDepot b = new BonDepot("061236547890", 10);
+
+        // 4) Ajout de lignes dans le bon
+        b.ajouterLigne("9782707356741", 5);  // 5 livres déposés
+        b.ajouterLigne("00208245", 3);       // 3 magazines déposés
+
+        System.out.println("=== Bon de dépôt créé ===");
+        System.out.println(b);
+
+        // 5) Enregistrement du bon dans l'établissement
+        e.ajouterBonDepot(b);
+
+        // 6) Mise à jour du stock à partir du bon
+        // (Selon le sujet, on mettra cela plus tard dans TP4, mais pour test immédiat :)
+        e.ajouter("9782707356741", 5);
+        e.ajouter("00208245", 3);
+
+        System.out.println("=== Articles après dépôt ===");
+        System.out.println(e);
+
+        System.out.println("=== Test terminé avec succès ✅ ===");
+    
+    }
+    
+}
