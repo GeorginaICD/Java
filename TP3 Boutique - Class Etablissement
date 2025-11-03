@@ -1,0 +1,93 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package boutique;
+
+/**
+ *
+ * @author georg
+ */
+public class Etablissement {
+    private String nom;
+    private Article[] articles;
+    private int nbArticles;
+
+    private BonDepot[] depots;
+    private int nbDepots;
+
+    public Etablissement(String nom, int maxArticles, int maxDepots) {
+        this.nom = nom;
+        this.articles = new Article[maxArticles];
+        this.nbArticles = 0;
+
+        this.depots = new BonDepot[maxDepots];
+        this.nbDepots = 0;
+    }
+
+    @Override
+    public String toString() {
+        String s = "Etablissement : " + nom + "\n\nArticles :\n";
+        for (int i = 0; i < nbArticles; i++) {
+            s += articles[i].toString() + "\n";
+        }
+        s += "\nBons de dépôt :\n";
+        for (int i = 0; i < nbDepots; i++) {
+            s += depots[i].toString() + "\n";
+        }
+        return s;
+    }
+    
+        private void insererTrie(Article a) {
+        int i = nbArticles - 1;
+        while (i >= 0 && a.placerApres(articles[i])) {
+            articles[i + 1] = articles[i];
+            i--;
+        }
+        articles[i + 1] = a;
+        nbArticles++;
+    }
+
+    public void ajouterLivre(String description, double prix, int stock, String isbn, int pages) {
+        insererTrie(new Livre(description, prix, stock, isbn, pages));
+    }
+
+    public void ajouterManuel(String description, double prix, int stock, String isbn, int pages, String matiere, String niveau) {
+        insererTrie(new Manuel(description, prix, stock, isbn, pages, matiere, niveau));
+    }
+
+    public void ajouterMagazine(String description, double prix, int stock, String issn, String periodicite, String date) {
+        java.time.LocalDate d = java.time.LocalDate.parse(date); 
+        insererTrie(new Magazine(description, prix, stock, issn, periodicite, d));
+    }
+    
+        public Article rechercher(String numero) {
+        for (int i = 0; i < nbArticles; i++) {
+            if (articles[i].getNumero().equals(numero)) {
+                return articles[i];
+            }
+        }
+        return null;
+    }
+
+    public void ajouter(String numero, int qte) {
+        Article a = rechercher(numero);
+        if (a != null) a.ajouter(qte);
+        else System.out.println("Article introuvable.");
+    }
+
+    public void retirer(String numero, int qte) {
+        Article a = rechercher(numero);
+        if (a != null) a.retirer(qte);
+        else System.out.println("Article introuvable.");
+    }
+
+        public void ajouterBonDepot(BonDepot b) {
+        if (nbDepots < depots.length) {
+            depots[nbDepots] = b;
+            nbDepots++;
+        }
+    }
+
+
+}
