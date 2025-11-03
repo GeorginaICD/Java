@@ -1,0 +1,51 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package boutique;
+
+/**
+ *
+ * @author georg
+ */
+public class Article {
+     protected String description;
+    protected double prixInitial;
+    protected int nbExemplaires;
+
+    public Article(String description, double prixInitial, int nbExemplaires) {
+        this.description = description;
+        this.prixInitial = prixInitial;
+        this.nbExemplaires = nbExemplaires;
+    }
+
+    public String getNumero() {
+        return null; // Sera redéfini dans les sous-classes
+    }
+
+    public boolean placerApres(Article autre) {
+        return this.getNumero().compareTo(autre.getNumero()) > 0;
+    }
+    
+    
+
+    public void ajouter(int qte) {
+        this.nbExemplaires += qte;
+    }
+
+    public void retirer(int qte) {
+        if (this.nbExemplaires >= qte) {
+            this.nbExemplaires -= qte;
+        }
+    }
+
+    public double calculerPrix() {
+        return prixInitial; // Spécificités dans les sous-classes si nécessaire
+    }
+
+    @Override
+    public String toString() {
+        return description + " - Prix : " + prixInitial + "€ - Stock : " + nbExemplaires;
+    }
+    
+}
