@@ -8,10 +8,11 @@ package boutique;
  *
  * @author georg
  */
-public class Article {
-     protected String description;
-    protected double prixInitial;
-    protected int nbExemplaires;
+public abstract class Article {
+     private String description;     //description de l'article
+    private double prixInitial;     //prix initial de vente
+    private int nbreExemplaires;    //nombre d'exemplaires 
+
 
     public Article(String description, double prixInitial, int nbExemplaires) {
         this.description = description;
@@ -19,9 +20,13 @@ public class Article {
         this.nbExemplaires = nbExemplaires;
     }
 
-    public String getNumero() {
-        return null; // Sera redéfini dans les sous-classes
-    }
+    /**
+     * méthode retournant le numéro ISBN ou ISSN de l'article
+     *
+     * @return le numéro de l'article
+     */
+    public abstract String getNumero();
+
 
     public boolean placerApres(Article autre) {
         return this.getNumero().compareTo(autre.getNumero()) > 0;
