@@ -1,0 +1,275 @@
+public abstract class Article {
+
+    protected String description;
+    protected double prixInitial;
+    protected int nbExemplaires;
+
+    public abstract String getNumero();
+
+    public String versFichier() {
+        return description + ":" + prixInitial + ":" + nbExemplaires;
+    }
+}
+
+public class Livre extends Article {
+
+    private String isbn;
+    private int nbPages;
+
+    @Override
+    public String getNumero() { return isbn; }
+
+    @Override
+    public String versFichier() {
+        return isbn + ":" + super.versFichier() + ":" + nbPages;
+    }
+}
+
+
+public class Manuel extends Livre {
+
+    private String matiere;
+    private String niveau;
+
+    @Override
+    public String versFichier() {
+        return getNumero() + ":" + description + ":" + prixInitial + ":" + nbExemplaires
+                + ":" + nbPages + ":" + matiere + ":" + niveau;
+    }
+}
+
+public class Magazine extends Article {
+
+    private String issn;
+    private String periodicite;
+    private LocalDate datePub;
+
+    @Override
+    public String getNumero() { return issn; }
+
+    @Override
+    public String versFichier() {
+        return issn + ":" + description + ":" + prixInitial + ":" + nbExemplaires
+                + ":" + periodicite + ":" + datePub.toString();
+    }
+}
+
+public class LigneDepot {
+
+    private String numero;
+    private int quantite;
+
+    public String versFichier() {
+        return quantite + ":" + numero;
+    }
+}
+
+
+public class BonDepot {
+
+    private int numero;
+    private String telephone;
+    private LocalDate date;
+    private int nbLignes;
+    private LigneDepot[] lignes;
+
+    public String versFichier() {
+        String res = numero + ":" + telephone + ":" + date + ":" + nbLignes;
+        for (int i = 0; i < nbLignes; i++) {
+            res += ":" + lignes[i].versFichier();
+        }
+        return res;
+    }
+}
+
+//Classe Etablissement — méthodes LISTER (TP4)
+// 2.1 Lister les articles triés par nombre d’exemplaires
+
+public void listerArticles() {
+    // tri par nb d’exemplaires (croissant)
+    for (int i = 0; i < nbArticles - 1; i++) {
+        for (int j = i + 1; j < nbArticles; j++) {
+            if (articles[i].getNbExemplaires() > articles[j].getNbExemplaires()) {
+                Article tmp = articles[i];
+                articles[i] = articles[j];
+                articles[j] = tmp;
+            }
+        }
+    }
+
+    // affichage
+    for (int i = 0; i < nbArticles; i++) {
+        double prix = articles[i].calculerPrix();
+        System.out.println(articles[i] + " | Prix actuel : " + prix);
+    }
+}
+
+//2.2 Lister les bons de dépôt d’un client (tri par date)
+public void listerDepotsClient(String telephone) {
+    for (int i = 0; i < nbDepots; i++) {
+        if (depots[i].getTelephone().equals(telephone)) {
+            System.out.println(depots[i]);
+        }
+    }
+}
+
+//2.3 Lister les bons de dépôt selon un numéro ISBN/ISSN et une période
+public void listerDepotsParPeriode(String numero, LocalDate debut, LocalDate fin) {
+
+    for (int i = 0; i < nbDepots; i++) {
+
+        LocalDate d = depots[i].getDate();
+
+        if (!d.isBefore(debut) && !d.isAfter(fin)) {
+
+            // Vérifier si ce bon contient une ligne avec ce numéro
+            for (int j = 0; j < depots[i].getNbLignes(); j++) {
+                if (depots[i].getLigne(j).getNumero().equals(numero)) {
+                    System.out.println(depots[i]);
+                    break;
+                }
+            }
+        }
+    }
+}
+
+
+//3.1 Sauvegarde des articles (méthode versFichierArticles)
+
+public void versFichierArticles(String nomF) {
+
+    FileWriter fw = new FileWriter(nomF, false);  // aucun try
+
+    int i = 0;
+    while (i < nbArticles) {
+
+        Article a = articles[i];
+
+        if (a != null) {
+
+            String ligne = a.versFichier() + System.lineSeparator();
+            fw.write(ligne);
+        }
+
+        i++;
+    }
+
+    fw.close();   // doit être appelé manuellement car pas de try-with-resources
+}
+
+// 3.2 Chargement des articles (méthode depuisFichierArticles)
+
+public void depuisFichierArticles(String nomF) {
+
+    FileReader fr = new FileReader(nomF);
+    BufferedReader br = new BufferedReader(fr);
+
+    String ligne = br.readLine();
+
+    while (ligne != null) {
+
+        String[] t = ligne.split(":");
+
+        // Reconnaître le type d’article selon le nombre d’informations
+
+        if (t.length == 4) {  // Livre
+            ajouterLivre(t[1],
+                         Double.parseDouble(t[2]),
+                         Integer.parseInt(t[3]),
+                         t[0],
+                         0);
+        }
+        else if (t.length == 6) {  // Magazine
+            ajouterMagazine(t[1],
+                           Double.parseDouble(t[2]),
+                           Integer.parseInt(t[3]),
+                           t[0],
+                           t[4],
+                           LocalDate.parse(t[5]));
+        }
+        else if (t.length == 7) {  // Manuel
+            ajouterManuel(t[1],
+                          Double.parseDouble(t[2]),
+                          Integer.parseInt(t[3]),
+                          t[0],
+                          Integer.parseInt(t[4]),
+                          t[5],
+                          t[6]);
+        }
+
+        ligne = br.readLine();  // lecture suivante
+    }
+
+    br.close();
+    fr.close();
+}
+
+// 3.3 Sauvegarde des bons de dépôt (méthode versFichierDepots)
+
+public void versFichierDepots(String nomF) {
+
+    FileWriter fw = new FileWriter(nomF, false);
+
+    int i = 0;
+    while (i < nbDepots) {
+
+        BonDepot bd = depots[i];
+
+        if (bd != null) {
+
+            String ligne = bd.versFichier() + System.lineSeparator();
+            fw.write(ligne);
+        }
+
+        i++;
+    }
+
+    fw.close();
+}
+
+// 3.4 Chargement des bons de dépôt (méthode depuisFichierDepots)
+
+public void depuisFichierDepots(String nomF) {
+
+    FileReader fr = new FileReader(nomF);
+    BufferedReader br = new BufferedReader(fr);
+
+    String ligne = br.readLine();
+
+    while (ligne != null) {
+
+        String[] t = ligne.split(":");
+
+        int num = Integer.parseInt(t[0]);
+        String tel = t[1];
+        LocalDate date = LocalDate.parse(t[2]);
+        int nbL = Integer.parseInt(t[3]);
+
+        BonDepot bd = new BonDepot(tel);
+        bd.setNumero(num);
+        bd.setDate(date);
+
+        int index = 4;   // début des lignes de dépôt
+
+        int k = 0;
+        while (k < nbL) {
+
+            int quantite = Integer.parseInt(t[index]);
+            String numeroArt = t[index + 1];
+
+            bd.ajouter(numeroArt, quantite);
+
+            index += 2;
+            k++;
+        }
+
+        enregistrerDepot(bd);
+
+        ligne = br.readLine();
+    }
+
+    br.close();
+    fr.close();
+}
+
+
