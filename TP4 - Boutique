@@ -157,6 +157,12 @@ public void versFichierArticles(String nomF) {
     fw.close();   // doit être appelé manuellement car pas de try-with-resources
 }
 
+// dans la classe etablissement après les divers attributs, il faut créer la constante de toute la classe et non pas la contante d'un objet
+//cette constante c'est le chemin vers le fichier texte
+
+public static final String FICHIER_BON = "fichier.txt";
+
+
 // 3.2 Chargement des articles (méthode depuisFichierArticles)
 
 public void depuisFichierArticles(String nomF) {
