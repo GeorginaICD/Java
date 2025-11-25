@@ -22,7 +22,7 @@ public class Boutique {
           // 2) Ajout d'articles
         e.ajouterLivre("La maison vide", 25, 10, "9782707356741", 752);
          e.ajouterManuel("Nouvelle grammaire du collège", 38, 31, "9782210446694", 512, "Français", "Collège");
-    //      e.ajouterMagazine("Geo", 6.0, 20, "00208245", "mensuel", "2024-08-01");
+    //      e.ajouterMagazine("Geo", 6.0, 20, "00208245", "mensuel",LocalDate.parse("2024-08-01"));
  
         System.out.println("=== Articles après ajout ===");
         System.out.println(e);
