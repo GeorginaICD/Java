@@ -15,6 +15,21 @@ public class Boutique {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+
+
+Livre l = new livre ("Mon livre 2025" , 15, 10, "9782707356741", 456);
+System.out.println(l.getNumero());
+System.out.println(l.toString());
+
+Manuel m = new Manuel ("Mon livre 2025" , 15, 50, "9782707356755", 456, "Java" , "Anne 2");
+System.out.println(m.getNumero());
+System.out.println(m.toString());
+
+
+Magazine mag = new Magazine ("Ma magazine 2025" , 3, 40, "00208245", "mensuel" , LocalDate.parse ("2025-11-28") );
+System.out.println(mag.getNumero());
+System.out.println(mag.toString());
+
         
         // 1) Création de l'établissement avec capacités limitées
         Etablissement e = new Etablissement("Librairie Solidaire", 20, 10);
