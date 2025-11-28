@@ -9,9 +9,9 @@ package boutique;
  * @author georg
  */
 public abstract class Article {
-     private String description;     //description de l'article
-    private double prixInitial;     //prix initial de vente
-    private int nbreExemplaires;    //nombre d'exemplaires 
+    protected String description;     //description de l'article
+    protected double prixInitial;     //prix initial de vente
+    protected int nbreExemplaires;    //nombre d'exemplaires 
 
 
     public Article(String description, double prixInitial, int nbExemplaires) {
