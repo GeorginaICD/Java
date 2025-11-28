@@ -53,6 +53,12 @@ public class Magazine extends Article {
     
 
 
+@Override
+public String getNumero() 
+      return issn;
+
+
+
     @Override
     public String toString() {
         return super.toString() + " - ISSN : " + issn + " - " + periodicite +
